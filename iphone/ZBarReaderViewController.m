@@ -47,12 +47,14 @@ UICameraForAVPosition (AVCaptureDevicePosition position)
 {
     switch(position)
     {
-    case AVCaptureDevicePositionBack:
-        return(UIImagePickerControllerCameraDeviceRear);
-    case AVCaptureDevicePositionFront:
-        return(UIImagePickerControllerCameraDeviceFront);
+        case AVCaptureDevicePositionBack:
+            return(UIImagePickerControllerCameraDeviceRear);
+        case AVCaptureDevicePositionFront:
+            return(UIImagePickerControllerCameraDeviceFront);
+            
+        default:
+            return(-1);
     }
-    return(-1);
 }
 
 static inline AVCaptureDevice*

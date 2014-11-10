@@ -70,7 +70,6 @@ enum {
     captureOutput = [AVCaptureVideoDataOutput new];
     captureOutput.alwaysDiscardsLateVideoFrames = YES;
 
-#ifdef FIXED_8697526
     /* iOS 4.2 introduced a bug that causes [session startRunning] to
      * hang if the session has a preview layer and this property is
      * specified at the output.  As this happens to be the default
@@ -78,14 +77,11 @@ enum {
      * without causing a functional problem (for now...).  Of course,
      * we still have no idea what the real problem is, or how robust
      * this is as a workaround...
+     * Another problem is that the default setting (kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange) 
+     * is changed to (kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+     * if the session has been stopped and then started again.
      */
-    captureOutput.videoSettings = 
-        [NSDictionary
-            dictionaryWithObject:
-                [NSNumber numberWithInt:
-                    kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange]
-            forKey: (NSString*)kCVPixelBufferPixelFormatTypeKey];
-#endif
+    captureOutput.videoSettings = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)};
 
     queue = dispatch_queue_create("ZBarCaptureReader", NULL);
     [captureOutput setSampleBufferDelegate:
