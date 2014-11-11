@@ -350,8 +350,8 @@ CGImageRef UIGetScreenImage(void);
         dt_frame = timer_elapsed(t_frame, now);
     t_frame = now;
 
-    int w = CGImageGetWidth(image);
-    int h = CGImageGetHeight(image);
+    int w = (int)CGImageGetWidth(image);
+    int h = (int)CGImageGetHeight(image);
     CGRect crop;
     if(w >= h)
         crop = CGRectMake(scanCrop.origin.x * w, scanCrop.origin.y * h,
@@ -401,7 +401,7 @@ CGImageRef UIGetScreenImage(void);
                           initWithCGImage: image
                           crop: crop
                           size: size];
-    int nsyms = [scanner scanImage: zimg];
+    NSInteger nsyms = [scanner scanImage: zimg];
     [zimg release];
 
     return(nsyms);
@@ -465,7 +465,7 @@ CGImageRef UIGetScreenImage(void);
     CGImageRef image = UIGetScreenImage();
 
     [self scanImage: image
-          withScaling: 0];
+        withScaling: 0];
     CGSize size = CGSizeMake(CGImageGetWidth(image), CGImageGetHeight(image));
     CGImageRelease(image);
 
@@ -546,8 +546,8 @@ CGImageRef UIGetScreenImage(void);
         return;
     }
 
-    int nsyms = [self scanImage: image.CGImage
-                      withScaling: 0];
+    NSInteger nsyms = [self scanImage: image.CGImage
+                          withScaling: 0];
 
     ZBarSymbol *sym = nil;
     if(nsyms)
@@ -698,8 +698,8 @@ CGImageRef UIGetScreenImage(void);
 {
     timer_start;
 
-    int nsyms = [self scanImage: image
-                      withScaling: 0];
+    NSInteger nsyms = [self scanImage: image
+                          withScaling: 0];
 
     if(!nsyms &&
        CGImageGetWidth(image) >= 640 &&
@@ -740,7 +740,7 @@ CGImageRef UIGetScreenImage(void);
     }
 
     zlog(@"read %d filtered symbols in %gs total\n",
-          (!syms) ? 0 : [syms count], timer_elapsed(t_start, timer_now()));
+          (!syms) ? 0 : (int)[syms count], timer_elapsed(t_start, timer_now()));
     return(syms);
 }
 

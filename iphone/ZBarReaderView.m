@@ -334,7 +334,7 @@ static inline CGFloat rotationForInterfaceOrientation (int orient)
                                  effectiveCrop.size.height * imageSize.height);
     zlog(@"layoutSubviews: bounds=%@ orient=%d image=%@ crop=%@ zoom=%g\n"
          @"=> preview=%@ crop=(z%@ p%@ %@ i%@) scale=%g %c %g = 1/%g",
-         NSStringFromCGSize(bounds.size), interfaceOrientation,
+         NSStringFromCGSize(bounds.size), (int)interfaceOrientation,
          NSStringFromCGSize(imageSize), NSStringFromCGRect(scanCrop), zoom,
          NSStringFromCGSize(psize), NSStringFromCGRect(zoomCrop),
          NSStringFromCGRect(previewCrop), NSStringFromCGRect(effectiveCrop),
@@ -364,7 +364,7 @@ static inline CGFloat rotationForInterfaceOrientation (int orient)
                                  duration: (NSTimeInterval) duration
 {
     if(interfaceOrientation != orient) {
-        zlog(@"orient=%d #%g", orient, duration);
+        zlog(@"orient=%d #%g", (int)orient, duration);
         interfaceOrientation = orient;
         animationDuration = duration;
     }

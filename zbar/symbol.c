@@ -233,7 +233,7 @@ unsigned base64_encode (char *dst,
     }
     *(dst++) = '\n';
     *(dst++) = '\0';
-    return(dst - start - 1);
+    return(unsigned)(dst - start - 1);
 }
 
 enum {
@@ -253,7 +253,7 @@ enum {
 
 #define TMPL_COPY(t) do {             \
         static const char *_st = (t); \
-        i = strlen(_st);              \
+        i = (int)strlen(_st);              \
         memcpy(*buf + n, _st, i + 1); \
         n += i;                       \
         assert(n <= maxlen);          \
@@ -291,11 +291,11 @@ char *zbar_symbol_xml (const zbar_symbol_t *sym,
                    sym->data[i + 2] == '>'));
     }
 
-    datalen = strlen(sym->data);
+    datalen = (unsigned)strlen(sym->data);
     if(binary)
         datalen = (sym->datalen + 2) / 3 * 4 + sym->datalen / 57 + 3;
 
-    maxlen = (MAX_STATIC + strlen(type) + strlen(orient) +
+    maxlen = (unsigned)(MAX_STATIC + strlen(type) + strlen(orient) +
               datalen + MAX_INT_DIGITS + 1);
     unsigned int mods = sym->modifiers;
     if(mods)

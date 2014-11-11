@@ -398,7 +398,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 - (void) viewWillAppear: (BOOL) animated
 {
     zlog(@"willAppear: anim=%d orient=%d",
-         animated, self.interfaceOrientation);
+         animated, (int)self.interfaceOrientation);
     [self initControls];
     [super viewWillAppear: animated];
 
@@ -459,7 +459,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 - (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) orient
                                  duration: (NSTimeInterval) duration
 {
-    zlog(@"willRotate: orient=%d #%g", orient, duration);
+    zlog(@"willRotate: orient=%d #%g", (int)orient, duration);
     rotating = YES;
     if(readerView)
         [readerView willRotateToInterfaceOrientation: orient
@@ -469,7 +469,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 - (void) willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation) orient
                                           duration: (NSTimeInterval) duration
 {
-    zlog(@"willAnimateRotation: orient=%d #%g", orient, duration);
+    zlog(@"willAnimateRotation: orient=%d #%g", (int)orient, duration);
     if(helpController)
         [helpController willAnimateRotationToInterfaceOrientation: orient
                         duration: duration];
@@ -479,7 +479,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) orient
 {
-    zlog(@"didRotate(%d): orient=%d", rotating, orient);
+    zlog(@"didRotate(%d): orient=%d", rotating, (int)orient);
     if(!rotating && readerView) {
         // work around UITabBarController bug: willRotate is not called
         // for non-portrait initial interface orientation
@@ -610,7 +610,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 {
     NSAssert2(mode == UIImagePickerControllerCameraCaptureModeVideo,
               @"attempt to set unsupported value (%d)"
-              @" for %@ property", mode, @"cameraCaptureMode");
+              @" for %@ property", (int)mode, @"cameraCaptureMode");
 }
 
 - (void) setVideoQuality: (UIImagePickerControllerQualityType) quality
@@ -686,7 +686,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
     {                                                  \
         NSAssert2(ignore || v == val,                  \
                   @"attempt to set unsupported value (%d)" \
-                  @" for %@ property", val, @#getter); \
+                  @" for %@ property", (int)val, @#getter); \
     }
 
 DEPRECATED_PROPERTY(sourceType, setSourceType, UIImagePickerControllerSourceType, UIImagePickerControllerSourceTypeCamera, NO)

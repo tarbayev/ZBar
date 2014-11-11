@@ -138,10 +138,10 @@ static const CGDataProviderDirectCallbacks asyncProvider = {
         return;
 
     CVPixelBufferLockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
-    int w = CVPixelBufferGetWidth(pixelBuffer);
-    int h = CVPixelBufferGetHeight(pixelBuffer);
-    int dy = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0);
-    int duv = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 1);
+    int w = (int)CVPixelBufferGetWidth(pixelBuffer);
+    int h = (int)CVPixelBufferGetHeight(pixelBuffer);
+    int dy = (int)CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0);
+    int duv = (int)CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 1);
     uint8_t *py = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
     uint8_t *puv = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 1);
     if(!py || !puv || dy < w || duv < w)

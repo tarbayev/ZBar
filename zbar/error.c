@@ -124,14 +124,14 @@ const char *_zbar_error_string (const void *container,
     else
         type = err_str[ZBAR_ERR_NUM];
 
-    len = SEV_MAX + MOD_MAX + ERR_MAX + strlen(func) + sizeof(basefmt);
+    len = (int)(SEV_MAX + MOD_MAX + ERR_MAX + strlen(func) + sizeof(basefmt));
     err->buf = realloc(err->buf, len);
     len = sprintf(err->buf, basefmt, sev, mod, func, type);
     if(len <= 0)
         return("<unknown>");
 
     if(err->detail) {
-        int newlen = len + strlen(err->detail) + 1;
+        int newlen = len + (int)strlen(err->detail) + 1;
         if(strstr(err->detail, "%s")) {
             if(!err->arg_str)
                 err->arg_str = strdup("<?>");

@@ -275,7 +275,7 @@ enum {
     }
 
     OSType format = CVPixelBufferGetPixelFormatType(buf);
-    int planes = CVPixelBufferGetPlaneCount(buf);
+    int planes = (int)CVPixelBufferGetPlaneCount(buf);
 
     if(format != kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange ||
        !planes) {
@@ -283,8 +283,8 @@ enum {
         goto error;
     }
 
-    int w = CVPixelBufferGetBytesPerRowOfPlane(buf, 0);
-    int h = CVPixelBufferGetHeightOfPlane(buf, 0);
+    int w = (int)CVPixelBufferGetBytesPerRowOfPlane(buf, 0);
+    int h = (int)CVPixelBufferGetHeightOfPlane(buf, 0);
     CVReturn rc =
         CVPixelBufferLockBaseAddress(buf, kCVPixelBufferLock_ReadOnly);
     if(!w || !h || rc) {
@@ -298,7 +298,7 @@ enum {
                withLength: w * h];
 
         BOOL doTrack = NO;
-        int ngood = 0;
+        NSInteger ngood = 0;
         ZBarSymbolSet *syms = nil;
         @synchronized(scanner) {
             if(width != w || height != h) {
